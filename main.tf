@@ -44,3 +44,17 @@ resource "aws_cognito_user_pool_domain" "cognito-domain" {
   domain       = "bsolz"
   user_pool_id = "${aws_cognito_user_pool.user_pool.id}"
 }
+
+resource "aws_secretsmanager_secret" "e-learning-cognito-details" {
+  name = "e-learning-cognito-details"
+}
+
+resource "aws_secretsmanager_secret_version" "e-learning-cognito-details-version" {
+  secret_id = aws_secretsmanager_secret.e-learning-cognito-details.id
+  secret_string = jsonencode({
+    COGNITO_CLIENT_ID = var.cognito_client_id
+    COGNITO_CLIENT_SECRET = var.cognito_client_secret
+    COGNITO_USER_POOL_ID = var.cognito_user_pool_id
+    COGNITO_ISSUER_URI = var.cognito_issuer_uri
+  })
+}

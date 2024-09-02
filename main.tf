@@ -94,5 +94,5 @@ resource "aws_iam_role" "e-learning-get-secret-role" {
 resource "aws_iam_policy_attachment" "e-learning-secret-policy-attachment" {
   name = "E-Learning Secret Manager Policy Attachement"
   policy_arn = aws_iam_policy.e-learning-get-secret-policy.arn
-  roles       = [aws_iam_role.e-learning-get-secret-role]
+  roles       = [aws_iam_role.e-learning-get-secret-role.name]
 }

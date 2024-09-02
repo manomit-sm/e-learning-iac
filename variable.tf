@@ -19,3 +19,17 @@ variable "cognito_issuer_uri" {
 variable "cognito_user_pool_id" {
   type = string
 }
+
+variable "secret_arn" {
+  type = string
+}
+
+variable "iam_secret_manager_policy_name" {
+  type = string
+  default = "e-learning-get-secret-policy"
+}
+
+variable "iam_secret_manager_role_name" {
+  type = string
+  default = "e-learning-get-secret-role"
+}

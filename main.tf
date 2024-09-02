@@ -58,3 +58,41 @@ resource "aws_secretsmanager_secret_version" "e-learning-cognito-details-version
     COGNITO_ISSUER_URI = var.cognito_issuer_uri
   })
 }
+
+resource "aws_iam_policy" "e-learning-get-secret-policy" {
+  name = var.iam_secret_manager_policy_name
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "secretsmanager:GetSecretValue"
+        ]
+        Resource = "${var.secret_arn}"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role" "e-learning-get-secret-role" {
+  name = var.iam_secret_manager_role_name
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {}
+        Action = "sts:AssumeRole"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_policy_attachment" "e-learning-secret-policy-attachment" {
+  name = "E-Learning Secret Manager Policy Attachement"
+  policy_arn = aws_iam_policy.e-learning-get-secret-policy.arn
+  roles       = [e-learning-get-secret-role]
+}

@@ -33,3 +33,11 @@ variable "iam_secret_manager_role_name" {
   type = string
   default = "e-learning-get-secret-role"
 }
+
+variable "account_id" {
+  type = string
+}
+
+variable "principal_role_name" {
+  type = string
+}

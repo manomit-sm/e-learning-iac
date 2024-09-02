@@ -84,7 +84,7 @@ resource "aws_iam_role" "e-learning-get-secret-role" {
     Statement = [
       {
         Effect = "Allow"
-        Principal = {}
+        Principal =  { "AWS": "arn:aws:iam::${var.account_id}:role/${var.principal_role_name}" }
         Action = "sts:AssumeRole"
       }
     ]

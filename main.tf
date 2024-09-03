@@ -105,12 +105,3 @@ resource "aws_iam_policy_attachment" "e-learning-secret-policy-attachment" {
   policy_arn = aws_iam_policy.e-learning-user-policy.arn
   roles       = [aws_iam_role.e-learning-get-secret-role.name]
 }
-
-output "secret_key" {
-  value = aws_iam_access_key.access_key.secret
-}
-
-
-output "access_key" {
-  value = aws_iam_access_key.access_key.id
-}

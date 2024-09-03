@@ -64,6 +64,7 @@ resource "aws_iam_user" "user" {
 }
 
 resource "aws_iam_access_key" "access_key" {
+  depends_on = [ aws_iam_user.user ]
   user = aws_iam_user.user.name
 }
 
@@ -85,7 +86,7 @@ resource "aws_iam_policy" "e-learning-user-policy" {
 
 resource "aws_iam_role" "e-learning-get-secret-role" {
   name = var.iam_secret_manager_role_name
-
+  depends_on = [ aws_iam_user.user ]
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -100,6 +101,7 @@ resource "aws_iam_role" "e-learning-get-secret-role" {
 
 resource "aws_iam_policy_attachment" "e-learning-secret-policy-attachment" {
   name = "E-Learning Secret Manager Policy Attachement"
+  depends_on = [ aws_iam_policy.e-learning-user-policy, aws_iam_role.e-learning-get-secret-role ]
   policy_arn = aws_iam_policy.e-learning-user-policy.arn
   roles       = [aws_iam_role.e-learning-get-secret-role.name]
 }

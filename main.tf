@@ -59,7 +59,7 @@ resource "aws_secretsmanager_secret_version" "e-learning-cognito-details-version
   })
 }
 
-resource "aws_iam_policy" "e-learning-get-secret-policy" {
+/*resource "aws_iam_policy" "e-learning-get-secret-policy" {
   name = var.iam_secret_manager_policy_name
 
   policy = jsonencode({
@@ -96,3 +96,4 @@ resource "aws_iam_policy_attachment" "e-learning-secret-policy-attachment" {
   policy_arn = aws_iam_policy.e-learning-get-secret-policy.arn
   roles       = [aws_iam_role.e-learning-get-secret-role.name]
 }
+*/

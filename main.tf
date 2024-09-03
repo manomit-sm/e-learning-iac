@@ -59,7 +59,7 @@ resource "aws_secretsmanager_secret_version" "e-learning-cognito-details-version
   })
 }
 
-resource "aws_iam_user" "user" {
+/*resource "aws_iam_user" "user" {
   name = "manomit"
 }
 
@@ -104,4 +104,4 @@ resource "aws_iam_policy_attachment" "e-learning-secret-policy-attachment" {
   depends_on = [ aws_iam_policy.e-learning-user-policy, aws_iam_role.e-learning-get-secret-role ]
   policy_arn = aws_iam_policy.e-learning-user-policy.arn
   roles       = [aws_iam_role.e-learning-get-secret-role.name]
-}
+}*/

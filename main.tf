@@ -59,9 +59,16 @@ resource "aws_secretsmanager_secret_version" "e-learning-cognito-details-version
   })
 }
 
-/*resource "aws_iam_policy" "e-learning-get-secret-policy" {
-  name = var.iam_secret_manager_policy_name
+resource "aws_iam_user" "user" {
+  name = "manomit"
+}
 
+resource "aws_iam_access_key" "access_key" {
+  user = aws_iam_user.user.name
+}
+
+resource "aws_iam_policy" "e-learning-user-policy" {
+  name = var.iam_secret_manager_policy_name
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -84,7 +91,7 @@ resource "aws_iam_role" "e-learning-get-secret-role" {
     Statement = [
       {
         Effect = "Allow"
-        Principal =  { "AWS": "arn:aws:iam::${var.account_id}:role/${var.principal_role_name}" }
+        Principal =  { "AWS": "arn:aws:iam::${var.account_id}:user/${aws_iam_user.user.name}" }
         Action = "sts:AssumeRole"
       }
     ]
@@ -93,7 +100,6 @@ resource "aws_iam_role" "e-learning-get-secret-role" {
 
 resource "aws_iam_policy_attachment" "e-learning-secret-policy-attachment" {
   name = "E-Learning Secret Manager Policy Attachement"
-  policy_arn = aws_iam_policy.e-learning-get-secret-policy.arn
+  policy_arn = aws_iam_policy.e-learning-user-policy.arn
   roles       = [aws_iam_role.e-learning-get-secret-role.name]
 }
-*/
